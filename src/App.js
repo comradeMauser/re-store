@@ -23,6 +23,7 @@ const App = ({booksService}) => {
                 <Route component={() => {
                     return <h3> that`s no use</h3>
                 }}/>
+                {/*<Redirect to={"/"}/>*/}
             </Switch>
         </div>
     );
