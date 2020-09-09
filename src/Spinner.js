@@ -1,9 +1,11 @@
 import React from 'react';
+import Loader from "react-loader-spinner";
 
 const Spinner = () => {
     return (
-        <div>
+        <div className="container">
             ...loading...
+            <Loader type="Oval" color="red"/>
         </div>
     );
 };
