@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import {connect} from "react-redux"
 import BookListItem from "./Book-list-item";
 
 
 class BookList extends Component {
     render() {
-        console.debug(this.props.books)
+        // console.debug(this.props.books)
         const {books} = this.props
         return (
             <ul className="list-group">
@@ -23,4 +24,10 @@ class BookList extends Component {
     }
 }
 
-export default BookList;
+const stateProps = (state) => {
+    return {
+        books: state.books
+    }
+}
+
+export default connect(stateProps)(BookList);
