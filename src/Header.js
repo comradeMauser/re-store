@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 
+
 const Header = () => {
     return (
         <div>
@@ -14,23 +15,15 @@ const Header = () => {
                 <div className="collapse navbar-collapse" id="navbarColor01">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" to={"/home/"}>Home</Link>
-                        </li>
-
+                            <Link className="nav-link" to={"/home/"}>Home</Link></li>
                         <li className="nav-item">
-                            <Link className="nav-link" to={"/card/"}>Card</Link>
-                        </li>
-
+                            <Link className="nav-link" to={"/card/"}>Card</Link></li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">Features</Link>
-                        </li>
+                            <Link className="nav-link" to="/books">Books</Link></li>
                         <li className="nav-item">
-                            <Link className="nav-link" to={"/"}>Pricing</Link>
-                        </li>
-
+                            <Link className="nav-link" to={"/"}>Pricing</Link></li>
                         <li className="nav-item">
-                            <Link className="nav-link" to={"/about/"}>About</Link>
-                        </li>
+                            <Link className="nav-link" to={"/about/"}>About</Link></li>
                         {/*  <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
                                aria-haspopup="true" aria-expanded="false">Dropdown</a>

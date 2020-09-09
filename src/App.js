@@ -8,6 +8,7 @@ import "./app.css";
 import Header from "./Header";
 import {Route, Switch} from "react-router-dom";
 import About from "./About";
+import Books from "./Books";
 
 
 const App = ({booksService}) => {
@@ -19,6 +20,7 @@ const App = ({booksService}) => {
             <Switch>
                 <Route path={"/home/"} component={Home} exaxt={true}/>
                 <Route path={"/card/"} component={Card} exaxt={true}/>
+                <Route path={"/books/"} component={Books} exaxt={true}/>
                 <Route path={"/about/"} component={About} exaxt={true}/>
                 <Route component={() => {
                     return <h3> that`s no use</h3>
