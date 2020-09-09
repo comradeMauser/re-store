@@ -11,8 +11,7 @@ import About from "./About";
 import Books from "./Books";
 
 
-const App = ({booksService}) => {
-    console.log(booksService.getBooks())
+const App = () => {
     return (
         <div className="App">
             <Header/>

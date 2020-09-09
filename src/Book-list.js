@@ -1,11 +1,21 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux"
+import {connect} from "react-redux";
 import BookListItem from "./Book-list-item";
+import HocContext from "./hoc-context";
+import booksLoaded from "./actions";
 
 
 class BookList extends Component {
+
+    componentDidMount() {
+        const {booksService} = this.props
+        const data = booksService.getBooks()
+
+        this.props.booksLoaded(data)
+    }
+
     render() {
-        // console.debug(this.props.books)
+        console.debug(this.props.books)
         const {books} = this.props
         return (
             <ul className="list-group">
@@ -24,10 +34,14 @@ class BookList extends Component {
     }
 }
 
-const stateProps = (state) => {
+const stateProps = (props) => {
     return {
-        books: state.books
+        books: props.books
     }
-}
+};
 
-export default connect(stateProps)(BookList);
+const dispatchProps = {
+    booksLoaded
+};
+
+export default HocContext()(connect(stateProps, dispatchProps)(BookList));
