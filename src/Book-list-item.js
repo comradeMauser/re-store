@@ -13,7 +13,8 @@ const BookListItem = ({book}) => {
                 <a className="book-title" href={`/books/${id}`}>{title}</a>
                 <div className="book-author">{author}</div>
                 <div className="book-id">article: {id}</div>
-                <div className="book-price">price: {price}</div>
+                <div className="book-price">price: ${price}</div>
+                <button className="btn btn-outline-info btn-block add">add</button>
             </div>
         </div>
     );

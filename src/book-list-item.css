@@ -1,15 +1,38 @@
-.books-details {
+.book-list-item {
     font-family: "Crimson Text", serif;
-
+    display: flex;
+    margin: 15px 0;
 }
 
-.book-title {
+.book-list-item .book-cover {
+    flex-shrink: 0;
+    width: 140px;
+    margin-right: 30px;
+}
+
+.book-list-item .book-cover img {
+    max-width: 100%;
+}
+
+.book-list-item .books-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    align-items: flex-start;
+}
+
+.book-list-item .books-details .book-title {
     font-family: Kufam, cursive;
-    font-size: 20px;
+    font-size: 1.8rem;
 
 }
 
-.book-author {
-    font-family: "Crimson Text", serif;
-    font-size: 20px;
+.book-list-item .books-details .book-author {
+    /*font-family: "Crimson Text", serif;*/
+    font-size: 1.5rem;
+}
+
+.book-list-item .books-details .book-price {
+    font-size: 1.4rem;
 }
