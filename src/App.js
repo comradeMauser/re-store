@@ -13,7 +13,7 @@ import Books from "./Books";
 
 const App = () => {
     return (
-        <div className="App">
+        <main role="main" className="container">
             <Header/>
             {/*<h2>show must go on</h2>*/}
             <Switch>
@@ -26,7 +26,7 @@ const App = () => {
                 }}/>
                 {/*<Redirect to={"/"}/>*/}
             </Switch>
-        </div>
+        </main>
     );
 };
 

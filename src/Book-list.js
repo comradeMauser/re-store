@@ -18,7 +18,7 @@ class BookList extends Component {
         console.debug(this.props.books)
         const {books} = this.props
         return (
-            <ul className="list-group">
+            <ul className="book list list-group list-unstyled">
                 {
                     books.map(book => {
                         return (
