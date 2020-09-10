@@ -1,0 +1,27 @@
+.header {
+    font-family: "Agency FB", serif;
+    font-size: 1.4rem;
+    color: red;
+}
+
+.header .navbar.navbar-expand-lg.navbar-dark.bg-primary .navbar-brand {
+    font-size: 2rem;
+    font-family: "Agency FB", monospace;
+}
+
+.collapse.navbar-collapse .navbar-nav.mr-auto .nav-item .nav-link {
+    font-family: "Agency FB", monospace;
+    font-size: 1.3rem;
+}
+
+.total {
+    list-style: none;
+    color: yellow;
+    padding-right: 20px;
+}
+
+.books-amount {
+    list-style: none;
+    padding-right: 20px;
+    color: dimgray;
+}

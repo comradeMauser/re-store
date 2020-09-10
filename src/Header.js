@@ -1,13 +1,14 @@
 import React from 'react';
 import {Link} from "react-router-dom";
+import "./header.css";
 
 
 const Header = (props) => {
     const {amount, total} = props
     return (
-        <div>
+        <div className="header">
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-                <Link className="navbar-brand" to="/">Navbar</Link>
+                <Link className="navbar-brand" to="/">Store</Link>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
                         aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
