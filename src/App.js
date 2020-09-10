@@ -14,7 +14,7 @@ import Books from "./Books";
 const App = () => {
     return (
         <main role="main" className="container">
-            <Header/>
+            <Header amount={13} total={666}/>
             {/*<h2>show must go on</h2>*/}
             <Switch>
                 <Route path={"/home/"} component={Home} exaxt={true}/>

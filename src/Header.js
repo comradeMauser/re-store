@@ -2,7 +2,8 @@ import React from 'react';
 import {Link} from "react-router-dom";
 
 
-const Header = () => {
+const Header = (props) => {
+    const {amount, total} = props
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -36,6 +37,13 @@ const Header = () => {
                             </div>
                         </li>*/}
                     </ul>
+
+                    <li className="books-amount">
+                        <Link to={"/amount/"}>books: {amount}</Link>
+                    </li>
+                    <li className="total">
+                        <Link to={"/total/"}>total price: ${total}</Link>
+                    </li>
                     <form className="form-inline my-2 my-lg-0">
                         <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
                         <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
