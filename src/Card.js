@@ -1,8 +1,10 @@
 import React from 'react';
+import "./card.css";
+
 
 const Card = () => {
     return (
-        <div className="card text-white bg-success mb-3">
+        <div className="card bg-dark mb-3">
             <div className="card-header">Card</div>
             <div className="card-body">
                 <h4 className="card-title">Chewie, we`re home</h4>
