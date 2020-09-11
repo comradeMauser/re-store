@@ -40,11 +40,13 @@ const Header = (props) => {
                     </ul>
 
                     <li className="books-amount">
-                        <Link to={"/amount/"}>books: {amount}</Link>
+                        <Link to={"/amount/"}>
+                            <button className="btn btn-outline-danger btn-block">Order:
+                                <span className="amount">{amount}</span> books for
+                                <span className="total">${total}</span></button>
+                        </Link>
                     </li>
-                    <li className="total">
-                        <Link to={"/total/"}>total price: ${total}</Link>
-                    </li>
+
                     <form className="form-inline my-2 my-lg-0">
                         <input className="form-control mr-sm-2" type="text" placeholder="Search"/>
                         <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -54,5 +56,6 @@ const Header = (props) => {
         </div>
     );
 };
-
+console.log(0.3 - 0.1 - 0.1 - 0.1)
+console.log(isFinite(""))
 export default Header;

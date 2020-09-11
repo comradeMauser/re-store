@@ -9,6 +9,7 @@ import Header from "./Header";
 import {Route, Switch} from "react-router-dom";
 import About from "./About";
 import Books from "./Books";
+import OrderCard from "./Order-card";
 
 
 const App = () => {
@@ -21,11 +22,13 @@ const App = () => {
                 <Route path={"/card/"} component={Card} exaxt={true}/>
                 <Route path={"/books/"} component={Books} exaxt={true}/>
                 <Route path={"/about/"} component={About} exaxt={true}/>
+                <Route path={"/amount/"} component={OrderCard} exaxt={true}/>
                 <Route component={() => {
                     return <h3> that`s no use</h3>
                 }}/>
                 {/*<Redirect to={"/"}/>*/}
             </Switch>
+            <OrderCard/>
         </main>
     );
 };
