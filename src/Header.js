@@ -57,6 +57,5 @@ const Header = (props) => {
         </div>
     );
 };
-console.log(0.3 - 0.1 - 0.1 - 0.1)
-console.log(isFinite(""))
+
 export default Header;
