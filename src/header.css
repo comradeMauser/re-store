@@ -33,7 +33,7 @@
     text-decoration: none;
 }
 
-.total {
+.books-amount .btn.btn-outline-danger.btn-block .total {
     /*font-size: 1.5rem;*/
     list-style: none;
     color: yellow;

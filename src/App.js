@@ -28,7 +28,7 @@ const App = () => {
                 }}/>
                 {/*<Redirect to={"/"}/>*/}
             </Switch>
-            <OrderCard/>
+            <OrderCard amount={13} total={666}/>
         </main>
     );
 };

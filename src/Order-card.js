@@ -1,9 +1,13 @@
 import React from 'react';
+import {trash, plus, minus} from "./icons";
 
-const OrderCard = () => {
+
+const OrderCard = (props) => {
+    const {amount, total} = props
+
     return (
         <div>
-          {/*  <h3>Your ordered books</h3>
+            {/*  <h3>Your ordered books</h3>
             <div className="card border-warning mb-3">
                 <div className="card-header"><h4>Your ordered books</h4></div>
                 <div className="card-body">
@@ -28,12 +32,16 @@ const OrderCard = () => {
                 <td>2</td>
                 <td>$999</td>
                 <td>
-                    <button className="btn btn-outline-success">inc</button>
-                    <button className="btn btn-outline-danger">dec</button>
-                    <button className="btn btn-outline-warning">remove</button>
+                    <button className="btn btn-outline-success plus"> {plus} </button>
+                    <button className="btn btn-outline-warning minus"> {minus} </button>
+                    <button className="btn btn-outline-secondary trash"> {trash} </button>
                 </td>
                 </tbody>
             </table>
+            <div className="total">
+                {amount}/{total}
+            </div>
+
         </div>
     );
 };

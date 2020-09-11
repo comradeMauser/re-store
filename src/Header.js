@@ -5,6 +5,7 @@ import "./header.css";
 
 const Header = (props) => {
     const {amount, total} = props
+
     return (
         <div className="header">
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
