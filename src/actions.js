@@ -1,3 +1,10 @@
+const booksError = (err) => {
+    return {
+        type: "ERROR",
+        payload: err
+    }
+};
+
 const booksRequest = () => {
     return {
         type: "REQUEST",
@@ -11,4 +18,4 @@ const booksLoaded = (newBooks) => {
     }
 };
 
-export {booksLoaded, booksRequest};
+export {booksLoaded, booksRequest, booksError};

@@ -24,7 +24,8 @@ const App = () => {
                 <Route path={"/about/"} component={About} exaxt={true}/>
                 <Route path={"/amount/"} component={OrderCard} exaxt={true}/>
                 <Route component={() => {
-                    return <h3> that`s no use</h3>
+                    return <h3> that`s no use
+                    (App component)</h3>
                 }}/>
                 {/*<Redirect to={"/"}/>*/}
             </Switch>
