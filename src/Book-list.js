@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import BookListItem from "./Book-list-item";
 import HocContext from "./hoc-context";
-import {booksLoaded, booksRequest, booksError} from "./actions";
+import fetchBooks from "./actions";
 import Loader from "react-loader-spinner"
 import "./book-list.css";
 import ErrorIndicator from "./Error-indicator";
@@ -11,15 +11,8 @@ import ErrorIndicator from "./Error-indicator";
 class BookList extends Component {
 
     componentDidMount() {
-        const {booksService, booksLoaded, booksRequest, booksError} = this.props
-        booksRequest()
-        booksService.getBooks()
-            .then((data) => {
-                booksLoaded(data)
-            })
-            .catch((error) => {
-                booksError(error)
-            })
+        const {fetchBooks} = this.props
+        fetchBooks()
     }
 
     render() {
@@ -52,7 +45,7 @@ class BookList extends Component {
     }
 }
 
-const stateProps = (props) => {
+const mapStateToProps = (props) => {
     return {
         books: props.books,
         loading: props.loading,
@@ -60,8 +53,12 @@ const stateProps = (props) => {
     }
 };
 
-const dispatchProps = {
-    booksLoaded, booksRequest, booksError,
+const mapDispatchToProps = (dispatch, ownProps) => {
+    const {booksService} = ownProps
+    return {
+        fetchBooks: fetchBooks(booksService, dispatch)
+    }
 };
 
-export default HocContext()(connect(stateProps, dispatchProps)(BookList));
+
+export default HocContext()(connect(mapStateToProps, mapDispatchToProps)(BookList));
