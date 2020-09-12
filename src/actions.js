@@ -1,3 +1,9 @@
+const booksRequest = () => {
+    return {
+        type: "REQUEST",
+    }
+};
+
 const booksLoaded = (newBooks) => {
     return {
         type: "LOADED",
@@ -5,4 +11,4 @@ const booksLoaded = (newBooks) => {
     }
 };
 
-export default booksLoaded;
+export {booksLoaded, booksRequest};

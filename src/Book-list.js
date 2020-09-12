@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import BookListItem from "./Book-list-item";
 import HocContext from "./hoc-context";
-import booksLoaded from "./actions";
+import {booksLoaded, booksRequest} from "./actions";
 import Loader from "react-loader-spinner"
 import "./book-list.css";
 
@@ -10,7 +10,8 @@ import "./book-list.css";
 class BookList extends Component {
 
     componentDidMount() {
-        const {booksService, booksLoaded} = this.props
+        const {booksService, booksLoaded, booksRequest} = this.props
+        booksRequest()
         booksService.getBooks()
             .then((data) => {
                 booksLoaded(data)
@@ -51,7 +52,7 @@ const stateProps = (props) => {
 };
 
 const dispatchProps = {
-    booksLoaded
+    booksLoaded, booksRequest
 };
 
 export default HocContext()(connect(stateProps, dispatchProps)(BookList));
