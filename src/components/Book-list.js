@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import BookListItem from "./Book-list-item";
-import HocContext from "./hoc-context";
-import fetchBooks from "./actions";
+import HocContext from "../hoc-context";
+import fetchBooks from "../actions";
 import Loader from "react-loader-spinner"
-import "./book-list.css";
-import ErrorIndicator from "./Error-indicator";
+import "../styles/book-list.css";
+import ErrorIndicator from "../Error-indicator";
 
 
 class BookList extends Component {

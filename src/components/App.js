@@ -1,10 +1,10 @@
 import React from 'react';
 import Card from "./Card";
 // import ErrorIndicator from "./Error-indicator";
-import HocContext from "./hoc-context";
+import HocContext from "../hoc-context";
 import Home from "./Home";
 // import Spinner from "./Spinner";
-import "./app.css";
+import "../styles/app.css";
 import Header from "./Header";
 import {Route, Switch} from "react-router-dom";
 import About from "./About";

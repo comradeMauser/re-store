@@ -1,6 +1,6 @@
 import React from 'react';
-import {trash, plus, minus} from "./icons";
-import "./order-card.css";
+import {trash, plus, minus} from "../icons";
+import "../styles/order-card.css";
 
 
 const OrderCard = (props) => {

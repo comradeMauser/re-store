@@ -5,7 +5,7 @@ import {Provider} from "react-redux";
 import ErrorBoundary from "./Error-boundary";
 import {ServiceProvider} from "./service-context"
 import {BrowserRouter as Router} from "react-router-dom";
-import App from "./App";
+import App from "./components/App";
 import store from "./store";
 
 const booksService = new BooksService()

@@ -1,5 +1,5 @@
 import React from 'react';
-import "./book-list-item.css";
+import "../styles/book-list-item.css";
 
 
 const BookListItem = ({book}) => {
