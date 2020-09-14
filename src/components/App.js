@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from "./Card";
 // import ErrorIndicator from "./Error-indicator";
-import HocContext from "../hoc-context";
+import HocContext from "../services/hoc-context";
 import Home from "./Home";
 // import Spinner from "./Spinner";
 import "../styles/app.css";

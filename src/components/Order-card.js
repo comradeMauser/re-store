@@ -1,5 +1,5 @@
 import React from 'react';
-import {trash, plus, minus} from "../icons";
+import {trash, plus, minus} from "../services/icons";
 import "../styles/order-card.css";
 
 

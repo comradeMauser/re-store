@@ -18,7 +18,6 @@ const booksLoaded = (newBooks) => {
     }
 };
 
-
 const fetchBooks = (booksService, dispatch) => () => {
     dispatch(booksRequest())
     booksService.getBooks()
@@ -28,6 +27,6 @@ const fetchBooks = (booksService, dispatch) => () => {
         .catch((error) => {
             dispatch(booksError(error))
         })
-}
+};
 
 export default fetchBooks

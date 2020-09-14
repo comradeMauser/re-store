@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import BooksService from "./service";
+import BooksService from "./services/service";
 import {Provider} from "react-redux";
-import ErrorBoundary from "./Error-boundary";
-import {ServiceProvider} from "./service-context"
+import ErrorBoundary from "./services/Error-boundary";
+import {ServiceProvider} from "./services/service-context"
 import {BrowserRouter as Router} from "react-router-dom";
 import App from "./components/App";
-import store from "./store";
+import store from "./services/store";
 
 const booksService = new BooksService()
 
