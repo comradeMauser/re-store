@@ -7,8 +7,25 @@ import Loader from "react-loader-spinner"
 import "../styles/book-list.css";
 import ErrorIndicator from "../services/Error-indicator";
 
+const BookList = ({books}) => {
+    return (
+        <ul className="book list list-group list-unstyled">
+            {
+                books.map(book => {
+                    return (
+                        <li key={book.id}
+                            className="list-group-item"
+                        >
+                            <BookListItem book={book}/>
+                        </li>
+                    )
+                })}
+        </ul>
+    );
+};
 
-class BookList extends Component {
+
+class BookListContainer extends Component {
 
     componentDidMount() {
         const {fetchBooks} = this.props
@@ -20,7 +37,6 @@ class BookList extends Component {
         const {books, loading, error} = this.props
 
         if (error) {
-            //errIndicator
             return ErrorIndicator()
         }
         if (loading) {
@@ -29,27 +45,14 @@ class BookList extends Component {
             </div>
         }
         return (
-            <ul className="book list list-group list-unstyled">
-                {
-                    books.map(book => {
-                        return (
-                            <li key={book.id}
-                                className="list-group-item"
-                            >
-                                <BookListItem book={book}/>
-                            </li>
-                        )
-                    })}
-            </ul>
+            <BookList books={books}/>
         );
     }
 }
 
-const mapStateToProps = (props) => {
+const mapStateToProps = ({books, loading, error}) => {
     return {
-        books: props.books,
-        loading: props.loading,
-        error: props.error
+        books, loading, error
     }
 };
 
@@ -60,5 +63,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 };
 
-
-export default HocContext()(connect(mapStateToProps, mapDispatchToProps)(BookList));
+export default HocContext()(connect(mapStateToProps, mapDispatchToProps)(BookListContainer));
