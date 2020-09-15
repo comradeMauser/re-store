@@ -1,3 +1,10 @@
+export const booksAdded = (bookId) => {
+    return{
+        type:"BOOKS_ADDED",
+        payload: bookId,
+    }
+}
+
 const booksError = (err) => {
     return {
         type: "FETCH_BOOKS_FAILURE",

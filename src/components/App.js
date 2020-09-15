@@ -9,10 +9,11 @@ import Header from "./Header";
 import {Route, Switch} from "react-router-dom";
 import About from "./About";
 import Books from "./Books";
-import OrderCard from "./Order-card";
+import OrderCart from "./Order";
 
 
 const App = () => {
+
     return (
         <main role="main" className="container">
             <Header amount={13} total={666}/>
@@ -22,14 +23,14 @@ const App = () => {
                 <Route path={"/card/"} component={Card} exaxt={true}/>
                 <Route path={"/books/"} component={Books} exaxt={true}/>
                 <Route path={"/about/"} component={About} exaxt={true}/>
-                <Route path={"/amount/"} component={OrderCard} exaxt={true}/>
+                <Route path={"/amount/"} component={OrderCart} exaxt={true}/>
                 <Route component={() => {
                     return <h3> that`s no use
-                    (App component)</h3>
+                        (App component)</h3>
                 }}/>
                 {/*<Redirect to={"/"}/>*/}
             </Switch>
-            <OrderCard amount={13} total={666}/>
+            <OrderCart amount={13}/>
         </main>
     );
 };

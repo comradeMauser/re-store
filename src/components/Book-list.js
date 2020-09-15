@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import BookListItem from "./Book-list-item";
 import HocContext from "../services/hoc-context";
-import fetchBooks from "../services/actions";
+import fetchBooks, {booksAdded} from "../services/actions";
 import Loader from "react-loader-spinner"
 import "../styles/book-list.css";
 import ErrorIndicator from "../services/Error-indicator";
 
-const BookList = ({books}) => {
+const BookList = ({books, addToCart}) => {
     return (
         <ul className="book list list-group list-unstyled">
             {
@@ -16,7 +16,7 @@ const BookList = ({books}) => {
                         <li key={book.id}
                             className="list-group-item"
                         >
-                            <BookListItem book={book}/>
+                            <BookListItem book={book} addToCart={addToCart}/>
                         </li>
                     )
                 })}
@@ -34,7 +34,7 @@ class BookListContainer extends Component {
 
     render() {
         console.debug(this.props.books)
-        const {books, loading, error} = this.props
+        const {books, loading, error, addToCart} = this.props
 
         if (error) {
             return ErrorIndicator()
@@ -45,7 +45,7 @@ class BookListContainer extends Component {
             </div>
         }
         return (
-            <BookList books={books}/>
+            <BookList books={books} addToCart={addToCart}/>
         );
     }
 }
@@ -59,7 +59,8 @@ const mapStateToProps = ({books, loading, error}) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     const {booksService} = ownProps
     return {
-        fetchBooks: fetchBooks(booksService, dispatch)
+        fetchBooks: fetchBooks(booksService, dispatch),
+        addToCart: (id) => {dispatch(booksAdded(id))}
     }
 };
 
