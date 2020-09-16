@@ -26,6 +26,41 @@ const initState = {
     orderAmount: 13666
 };
 
+const repeatedItems = (orderBooks, item, index) => {
+    if (index === -1) {
+        console.log("repeat if")
+        return [
+            ...orderBooks,
+            item]
+    } else {
+        console.log("repeat else")
+        return [
+            ...orderBooks.slice(0, index),
+            item,
+            ...orderBooks.slice(index + 1)
+        ]
+    }
+};
+
+const repeatedBook = (book, item) => {
+    if (item) {
+        return {
+            ...item,
+            price: (item.count + 1) * book.price,
+            count: item.count + 1,
+        }
+    } else {
+        return {
+            id: book.id,
+            author: book.author,
+            title: book.title,
+            price: book.price,
+            count: book.count,
+            coverImage: book.coverImage,
+        }
+    }
+};
+
 const reducer = (state = initState, action) => {
     console.debug(action.type)
     switch (action.type) {
@@ -49,23 +84,20 @@ const reducer = (state = initState, action) => {
                 error: false,
             };
         case "BOOKS_ADDED":
-            const id = action.payload
-            const book = state.books.find(book => book.id === id)
-            const newBook = {
-                id: book.id,
-                author: book.author,
-                title: book.title,
-                price: book.price,
-                count: book.count,
-                coverImage: book.coverImage,
-            }
+            const bookId = action.payload
+            const book = state.books.find(book => book.id === bookId)
+            const itemIndex = state.orderedBooks.findIndex(({id}) => id === bookId)
+            console.debug(itemIndex)
+            const item = state.orderedBooks[itemIndex]
+            console.debug(item)
+            const newBook = repeatedBook(book, item)
+
+            console.log(newBook)
             return {
                 ...state,
-                orderedBooks: [
-                    ...state.orderedBooks,
-                    newBook
-                ]
-            };
+                orderedBooks: repeatedItems(state.orderedBooks, newBook, itemIndex)
+            }
+
         default:
             return state
     }
