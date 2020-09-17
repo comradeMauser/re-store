@@ -26,43 +26,40 @@ const initState = {
     orderAmount: 13666
 };
 
-const repeatedItems = (orderBooks, item, index) => {
-    if (index === -1) {
-        console.log("repeat if")
-        return [
-            ...orderBooks,
-            item]
-    } else {
-        console.log("repeat else")
-        return [
-            ...orderBooks.slice(0, index),
-            item,
-            ...orderBooks.slice(index + 1)
+// f() will create position with clones in list orders, then => updated state with this position
+const clonesBooks = (state, cloneInCart, book) => {
+    const cloneInCartIndex = state.orderedBooks.findIndex(el => el.id === cloneInCart.id)
+
+    //new updated position/line in the cart
+    const addedBook = {
+        ...book,
+        price: book.price * (cloneInCart.count + 1), //compute later; upd: done!
+        count: book.count + cloneInCart.count,
+    };
+
+    //new state
+    return {
+        ...state,
+        orderedBooks: [
+            ...state.orderedBooks.slice(0, cloneInCartIndex),
+            addedBook,
+            ...state.orderedBooks.slice(cloneInCartIndex + 1)
         ]
     }
 };
 
-const repeatedBook = (book, item) => {
-    if (item) {
-        return {
-            ...item,
-            price: (item.count + 1) * book.price,
-            count: item.count + 1,
-        }
-    } else {
-        return {
-            id: book.id,
-            author: book.author,
-            title: book.title,
-            price: book.price,
-            count: book.count,
-            coverImage: book.coverImage,
-        }
+const addedBook = (state, book) => {
+    return {
+        ...state,
+        orderedBooks: [
+            ...state.orderedBooks,
+            book
+        ]
     }
 };
 
 const reducer = (state = initState, action) => {
-    console.debug(action.type)
+    // console.debug(action.type)
     switch (action.type) {
         case "FETCH_BOOKS_FAILURE":
             return {
@@ -86,18 +83,10 @@ const reducer = (state = initState, action) => {
         case "BOOKS_ADDED":
             const bookId = action.payload
             const book = state.books.find(book => book.id === bookId)
-            const itemIndex = state.orderedBooks.findIndex(({id}) => id === bookId)
-            console.debug(itemIndex)
-            const item = state.orderedBooks[itemIndex]
-            console.debug(item)
-            const newBook = repeatedBook(book, item)
-
-            console.log(newBook)
-            return {
-                ...state,
-                orderedBooks: repeatedItems(state.orderedBooks, newBook, itemIndex)
-            }
-
+            const cloneInCart = state.orderedBooks.find(el => el.id === bookId)
+            // if clone => updated position, else usual adding
+            return cloneInCart ?
+                clonesBooks(state, cloneInCart, book) : addedBook(state, book);
         default:
             return state
     }

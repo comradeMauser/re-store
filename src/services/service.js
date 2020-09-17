@@ -36,8 +36,8 @@ class BooksService {
     getBooks() {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                //Promise reject simulation with chance 1 of 5
-                if (Math.random() > 0.2) {
+                //Promise reject simulation with chance 1 of 10
+                if (Math.random() > 0.1) {
                     resolve(this.data)
                 } else {
                     reject(new Error("something is wrong"))
