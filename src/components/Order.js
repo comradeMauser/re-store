@@ -1,7 +1,9 @@
 import React from 'react';
 import {connect} from "react-redux";
 import {trash, plus, minus} from "../services/icons";
+import {bookIncrease, bookDecrease, bookDelete} from "../services/actions";
 import "../styles/order-card.css";
+import {bindActionCreators} from "redux";
 
 
 const Order = (props) => {
@@ -56,12 +58,14 @@ const mapStatetoProps = ({orderedBooks, orderAmount}) => {
     }
 };
 
-const mapDispatchToProps = () => {
-    return {
-        increase: (id) => console.debug("INC", id),
-        decrease: (id) => console.debug("DEC", id),
-        trashCan: (id) => console.debug("THRAAAAASH!", id),
-    }
+const mapDispatchToProps = (dispatch) => {
+     return bindActionCreators(
+        {
+            increase: (id)=>bookIncrease(id),
+            decrease: (id)=>bookDecrease(id),
+            trashCan: (id)=>bookDelete(id)
+        }, dispatch
+    )
 };
 
 export default connect(mapStatetoProps, mapDispatchToProps)(Order)

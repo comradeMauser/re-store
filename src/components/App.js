@@ -18,6 +18,7 @@ const App = () => {
         <main role="main" className="container">
             <Header amount={13} total={666}/>
             {/*<h2>show must go on</h2>*/}
+            <OrderCart amount={13}/>
             <Switch>
                 <Route path={"/home/"} component={Home} exaxt={true}/>
                 <Route path={"/card/"} component={Card} exaxt={true}/>
@@ -30,7 +31,6 @@ const App = () => {
                 }}/>
                 {/*<Redirect to={"/"}/>*/}
             </Switch>
-            <OrderCart amount={13}/>
         </main>
     );
 };

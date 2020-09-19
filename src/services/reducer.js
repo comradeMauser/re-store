@@ -27,26 +27,23 @@ const initState = {
 };
 
 // f() will create position with clones in list orders, then => updated state with this position
-const clonesBooks = (state, cloneInCart, book) => {
-    const cloneInCartIndex = state.orderedBooks.findIndex(el => el.id === cloneInCart.id)
-
+const clonesBooks = (state, indexInOrder, book) => {
     //new updated position/line in the cart
-    const addedBook = {
+    const cloneBook = {
         ...book,
-        price: book.price * (cloneInCart.count + 1), //compute later; upd: done!
-        count: book.count + cloneInCart.count,
+        price: book.price + state.orderedBooks[indexInOrder].price, //compute later; upd: done!
+        count: book.count + state.orderedBooks[indexInOrder].count,
     };
-
     //new state
     return {
         ...state,
         orderedBooks: [
-            ...state.orderedBooks.slice(0, cloneInCartIndex),
-            addedBook,
-            ...state.orderedBooks.slice(cloneInCartIndex + 1)
+            ...state.orderedBooks.slice(0, indexInOrder),
+            cloneBook,
+            ...state.orderedBooks.slice(indexInOrder + 1)
         ]
     }
-};
+}; // rewrite with index only
 
 const addedBook = (state, book) => {
     return {
@@ -58,8 +55,29 @@ const addedBook = (state, book) => {
     }
 };
 
+const decBook = (state, decIndex, book) => {
+    // if < 0 condition add later
+    const decBook = {
+        ...book,
+        price: state.orderedBooks[decIndex].price - book.price, //compute it later; done!
+        count: state.orderedBooks[decIndex].count - 1, //or book.count
+    };
+
+    return {
+        ...state,
+        orderedBooks: [
+            ...state.orderedBooks.slice(0, decIndex),
+            decBook,
+            ...state.orderedBooks.slice(decIndex + 1)
+        ]
+    }
+}
 const reducer = (state = initState, action) => {
     // console.debug(action.type)
+    const bookId = action.payload
+    const book = state.books.find(book => book.id === bookId)
+    const indexInOrder = state.orderedBooks.findIndex(el => el.id === bookId)
+
     switch (action.type) {
         case "FETCH_BOOKS_FAILURE":
             return {
@@ -80,13 +98,41 @@ const reducer = (state = initState, action) => {
                 loading: false,
                 error: false,
             };
+
         case "BOOKS_ADDED":
-            const bookId = action.payload
-            const book = state.books.find(book => book.id === bookId)
-            const cloneInCart = state.orderedBooks.find(el => el.id === bookId)
             // if clone => updated position, else usual adding
-            return cloneInCart ?
-                clonesBooks(state, cloneInCart, book) : addedBook(state, book);
+            return indexInOrder > -1 ?
+                clonesBooks(state, indexInOrder, book) : addedBook(state, book);
+
+        case "BOOK_INCREASE":
+            console.debug("INC", action.payload);
+            return clonesBooks(state, indexInOrder, book);
+
+        case "BOOK_DECREASE":
+            // console.log("decIndex:", decIndex)
+            // console.log("state.orderedBooks[decIndex]:", state.orderedBooks[decIndex])
+            // console.debug("DECREASE", action.payload);
+            const decIndex = state.orderedBooks.findIndex(el => el.id === bookId)
+            /*const decBook = {
+                ...book,
+                price: state.orderedBooks[decIndex].price - book.price, //compute it later;
+                count: state.orderedBooks[decIndex].count - 1,
+            }
+            return {
+                ...state,
+                orderedBooks: [
+                    ...state.orderedBooks.slice(0, decIndex),
+                    decBook,
+                    ...state.orderedBooks.slice(decIndex + 1)
+                ]
+            }*/
+            return decBook(state, decIndex, book)
+
+        case "BOOK_DELETE":
+            console.debug("DELETE", action.payload);
+            return state;
+
+        //default action
         default:
             return state
     }
