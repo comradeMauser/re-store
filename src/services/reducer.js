@@ -27,11 +27,11 @@ const initState = {
 };
 
 // f() will create position with clones in list orders, then => updated state with this position
-const clonesBooks = (state, indexInOrder, book) => {
+const cloneBook = (state, indexInOrder, book) => {
     //new updated position/line in the cart
     const cloneBook = {
         ...book,
-        price: book.price + state.orderedBooks[indexInOrder].price, //compute later; upd: done!
+        price: book.price + state.orderedBooks[indexInOrder].price,
         count: book.count + state.orderedBooks[indexInOrder].count,
     };
     //new state
@@ -43,9 +43,9 @@ const clonesBooks = (state, indexInOrder, book) => {
             ...state.orderedBooks.slice(indexInOrder + 1)
         ]
     }
-}; // rewrite with index only
+};
 
-const addedBook = (state, book) => {
+const addBook = (state, book) => {
     return {
         ...state,
         orderedBooks: [
@@ -55,23 +55,35 @@ const addedBook = (state, book) => {
     }
 };
 
-const decBook = (state, decIndex, book) => {
-    // if < 0 condition add later
-    const decBook = {
+const decBook = (state, indexInOrder, book) => {
+    //new updated position/line in the cart
+    const decrBook = {
         ...book,
-        price: state.orderedBooks[decIndex].price - book.price, //compute it later; done!
-        count: state.orderedBooks[decIndex].count - 1, //or book.count
+        price: state.orderedBooks[indexInOrder].price - book.price, //compute it later; done!
+        count: state.orderedBooks[indexInOrder].count - 1, //or book.count
     };
+    const counter = decrBook.count
+    const newState = {
+        ...state,
+        orderedBooks: [
+            ...state.orderedBooks.slice(0, indexInOrder),
+            decrBook,
+            ...state.orderedBooks.slice(indexInOrder + 1)
+        ]
+    }
+    return counter > -1 ? newState : deleteBook(state, indexInOrder)
+};
 
+const deleteBook = (state, indexInOrder) => {
     return {
         ...state,
         orderedBooks: [
-            ...state.orderedBooks.slice(0, decIndex),
-            decBook,
-            ...state.orderedBooks.slice(decIndex + 1)
+            ...state.orderedBooks.slice(0, indexInOrder),
+            ...state.orderedBooks.slice(indexInOrder + 1),
         ]
     }
-}
+};
+
 const reducer = (state = initState, action) => {
     // console.debug(action.type)
     const bookId = action.payload
@@ -102,35 +114,16 @@ const reducer = (state = initState, action) => {
         case "BOOKS_ADDED":
             // if clone => updated position, else usual adding
             return indexInOrder > -1 ?
-                clonesBooks(state, indexInOrder, book) : addedBook(state, book);
+                cloneBook(state, indexInOrder, book) : addBook(state, book);
 
         case "BOOK_INCREASE":
-            console.debug("INC", action.payload);
-            return clonesBooks(state, indexInOrder, book);
+            return cloneBook(state, indexInOrder, book);
 
         case "BOOK_DECREASE":
-            // console.log("decIndex:", decIndex)
-            // console.log("state.orderedBooks[decIndex]:", state.orderedBooks[decIndex])
-            // console.debug("DECREASE", action.payload);
-            const decIndex = state.orderedBooks.findIndex(el => el.id === bookId)
-            /*const decBook = {
-                ...book,
-                price: state.orderedBooks[decIndex].price - book.price, //compute it later;
-                count: state.orderedBooks[decIndex].count - 1,
-            }
-            return {
-                ...state,
-                orderedBooks: [
-                    ...state.orderedBooks.slice(0, decIndex),
-                    decBook,
-                    ...state.orderedBooks.slice(decIndex + 1)
-                ]
-            }*/
-            return decBook(state, decIndex, book)
+            return decBook(state, indexInOrder, book)
 
         case "BOOK_DELETE":
-            console.debug("DELETE", action.payload);
-            return state;
+            return deleteBook(state, indexInOrder);
 
         //default action
         default:
