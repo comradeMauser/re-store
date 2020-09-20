@@ -116,8 +116,8 @@ const reducer = (state = initState, action) => {
             return indexInOrder > -1 ?
                 cloneBook(state, indexInOrder, book) : addBook(state, book);
 
-        case "BOOK_INCREASE":
-            return cloneBook(state, indexInOrder, book);
+        // case "BOOK_INCREASE":
+        //     return cloneBook(state, indexInOrder, book);
 
         case "BOOK_DECREASE":
             return decBook(state, indexInOrder, book)

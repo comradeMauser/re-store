@@ -60,7 +60,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     const {booksService} = ownProps
     return {
         fetchBooks: fetchBooks(booksService, dispatch),
-        addToCart: (id) => {dispatch(booksAdded(id))}
+        addToCart: (id) => {
+            dispatch(booksAdded(id))
+        }
     }
 };
 
