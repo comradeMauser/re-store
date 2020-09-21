@@ -10,6 +10,7 @@ const Order = (props) => {
     const {items, total, increase, decrease, trashCan} = props
     const bookOrdered = (item, index) => {
         const {id, author, price, count, title} = item
+
         return <tr key={id}>
             <td>{index + 1}</td>
             <td>{author} "{title}"</td>

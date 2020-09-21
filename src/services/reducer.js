@@ -27,7 +27,10 @@ const initState = {
 };
 
 //books counter changing
-const updateOrder = (state, indexInOrder, book, value) => {
+const updateOrder = (state, bookId, value) => {
+    const book = state.books.find(book => book.id === bookId)
+    const indexInOrder = state.orderedBooks.findIndex(el => el.id === bookId)
+
     //remove position if no value
     if (value) {
         //others operations with counters
@@ -49,8 +52,7 @@ const updateOrder = (state, indexInOrder, book, value) => {
                 ]
             }
         }
-    }
-    else {
+    } else {
         return {
             ...state,
             orderedBooks: [
@@ -82,9 +84,7 @@ const cloneBook = (state, indexInOrder, book, value) => {
 
 const reducer = (state = initState, action) => {
     // console.debug(action.type)
-    const bookId = action.payload
-    const book = state.books.find(book => book.id === bookId)
-    const indexInOrder = state.orderedBooks.findIndex(el => el.id === bookId)
+    // const book = state.books.find(book => book.id === action.payload)
 
     switch (action.type) {
         case "FETCH_BOOKS_FAILURE":
@@ -108,14 +108,14 @@ const reducer = (state = initState, action) => {
             };
         case "BOOKS_ADDED":
             // this case includes functions Adding and Increase books count
-            return updateOrder(state, indexInOrder, book, 1);
+            return updateOrder(state, action.payload, 1);
 
         case "BOOK_DECREASE":
             // this case will Decrease by one books count or remove chosen position if it count equals 0
-            return updateOrder(state, indexInOrder, book, -1)
+            return updateOrder(state, action.payload, -1)
 
         case "BOOK_DELETE":
-            return updateOrder(state, indexInOrder, book)
+            return updateOrder(state, action.payload)
 
         default:
             return state
