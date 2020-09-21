@@ -5,13 +5,6 @@ export const booksAdded = (bookId) => {
     }
 };
 
-export const bookIncrease = (bookId) => {
-    return {
-        type: "BOOK_INCREASE",
-        payload: bookId,
-    }
-};
-
 export const bookDecrease = (bookId) => {
     return {
         type: "BOOK_DECREASE",
