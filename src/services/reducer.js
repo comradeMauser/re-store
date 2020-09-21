@@ -26,14 +26,41 @@ const initState = {
     orderAmount: 13666
 };
 
+
+const updOrder = (state, indexInOrder, book, value) => {
+
+    if (indexInOrder > -1) {
+        console.log(`hi, if ${value}`)
+
+        return cloneBook(state, indexInOrder, book, value)
+
+    } else {
+        console.log(`hi, else ${value}`)
+
+        return {
+            ...state,
+            orderedBooks: [
+                ...state.orderedBooks,
+                book
+            ]
+        }
+    }
+}
+
+
 // f() will create position with clones in list orders, then => updated state with this position
-const cloneBook = (state, indexInOrder, book) => {
+const cloneBook = (state, indexInOrder, book, value) => {
+    console.log("value:", value)
     //new updated position/line in the cart
     const cloneBook = {
         ...book,
-        price: book.price + state.orderedBooks[indexInOrder].price,
-        count: book.count + state.orderedBooks[indexInOrder].count,
+        // price: book.price + state.orderedBooks[indexInOrder].price,
+        // count: book.count + state.orderedBooks[indexInOrder].count,
+        price: state.orderedBooks[indexInOrder].price + (book.price * value),
+        count: state.orderedBooks[indexInOrder].count + (book.count * value),
     };
+    console.debug(`${book.price},
+    ${book.count}`)
     //new state
     return {
         ...state,
@@ -46,6 +73,7 @@ const cloneBook = (state, indexInOrder, book) => {
 };
 
 const addBook = (state, book) => {
+    console.log("addBook()")
     return {
         ...state,
         orderedBooks: [
@@ -85,7 +113,7 @@ const deleteBook = (state, indexInOrder) => {
 };
 
 const reducer = (state = initState, action) => {
-    // console.debug(action.type)
+    console.debug(action.type)
     const bookId = action.payload
     const book = state.books.find(book => book.id === bookId)
     const indexInOrder = state.orderedBooks.findIndex(el => el.id === bookId)
@@ -110,17 +138,19 @@ const reducer = (state = initState, action) => {
                 loading: false,
                 error: false,
             };
-
         case "BOOKS_ADDED":
             // if clone => updated position, else usual adding
-            return indexInOrder > -1 ?
-                cloneBook(state, indexInOrder, book) : addBook(state, book);
+            /*   return indexInOrder > -1 ?
+                   cloneBook(state, indexInOrder, book) : addBook(state, book);
+   */
+            return updOrder(state, indexInOrder, book, 1);
 
-        // case "BOOK_INCREASE":
-        //     return cloneBook(state, indexInOrder, book);
+        case "BOOK_INCREASE":
+            return updOrder(state, indexInOrder, book, 1);
 
         case "BOOK_DECREASE":
-            return decBook(state, indexInOrder, book)
+            // return decBook(state, indexInOrder, book)
+            return updOrder(state, indexInOrder, book, -1)
 
         case "BOOK_DELETE":
             return deleteBook(state, indexInOrder);
