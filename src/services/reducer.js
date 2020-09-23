@@ -1,42 +1,33 @@
 const initState = {
-    books: [],
-    loading: true,
-    error: null,
-    orderedBooks: [
-        /*{
-            id: 5,
-            author: "Author5",
-            title: "Book5",
-            price: 999,
-            coverImage: "https://data.fantlab.ru/images/editions/big/5684",
-        }, {
-            id: 6,
-            author: "Author6",
-            title: "Book6",
-            price: 999,
-            coverImage: "https://data.fantlab.ru/images/editions/big/5684",
-        }, {
-            id: 7,
-            author: "Autho71",
-            title: "Book7",
-            price: 999,
-            coverImage: "https://data.fantlab.ru/images/editions/big/5684",
-        },*/
-    ],
-    orderAmount: 13666
+    booksList: {
+        books: [],
+        loading: true,
+        error: null,
+    },
+    order: {
+        orderedBooks: [],
+        orderAmount: 13666,
+    },
+
+};
+
+const updateCart = (state, payload, value) => {
+    const book = state.books.find(book => book.id === payload)
+    const indexInOrder = state.orderedBooks.findIndex(el => el.id === payload)
+
+    return updateBook(state, indexInOrder, book, value)
 };
 
 //books counter changing
-const updateOrder = (state, indexInOrder, book, value) => {
+const updateBook = (state, indexInOrder, book, value) => {
     //remove position if no value
     if (value) {
-
         //others operations with counters
         if (indexInOrder > -1) {
             const counter = state.orderedBooks[indexInOrder].count
             //others operations with clones
             if (counter <= 0) {
-                return updateOrder(state, indexInOrder, book)
+                return updateBook(state, indexInOrder, book)
             } else
                 return cloneBook(state, indexInOrder, book, value)
         }
@@ -79,12 +70,54 @@ const cloneBook = (state, indexInOrder, book, value) => {
         ]
     }
 };
+const updateBookList = (state, action) => {
+    switch (action.type) {
+        case "FETCH_BOOKS_FAILURE":
+            return {
+                books: [],
+                loading: false,
+                error: action.payload
+            };
+        case "FETCH_BOOKS_REQUEST":
+            return {
+                books: [],
+                loading: true,
+                error: false,
+            };
+        case "FETCH_BOOKS_SUCCESS":
+            return {
+                books: action.payload,
+                loading: false,
+                error: false,
+            };
+        default:
+            console.log("[eq!")
+    }
+};
+const updateOrder = (state, action) => {
+    switch (action.type) {
+
+        case "BOOKS_ADDED":
+            // this case includes functions Adding and Increase books count
+            return updateCart(state, action.payload, 1);
+
+        case "BOOK_DECREASE":
+            // this case will Decrease by one books count or remove chosen position if it count equals 0
+            return updateCart(state, action.payload, -1);
+
+        case "BOOK_DELETE":
+            return updateCart(state, action.payload);
+
+        default:
+            console.log("suck my balls, shithead!")
+    }
+};
 
 const reducer = (state = initState, action) => {
     // console.debug(action.type)
-    const book = state.books.find(book => book.id === action.payload)
-    const indexInOrder = state.orderedBooks.findIndex(el => el.id === action.payload)
     switch (action.type) {
+
+
         case "FETCH_BOOKS_FAILURE":
             return {
                 ...state,
@@ -104,16 +137,17 @@ const reducer = (state = initState, action) => {
                 loading: false,
                 error: false,
             };
+
         case "BOOKS_ADDED":
             // this case includes functions Adding and Increase books count
-            return updateOrder(state, indexInOrder, book, 1);
+            return updateCart(state, action.payload, 1);
 
         case "BOOK_DECREASE":
             // this case will Decrease by one books count or remove chosen position if it count equals 0
-            return updateOrder(state, indexInOrder, book, -1)
+            return updateCart(state, action.payload, -1);
 
         case "BOOK_DELETE":
-            return updateOrder(state, indexInOrder, book)
+            return updateCart(state, action.payload);
 
         default:
             return state

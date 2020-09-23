@@ -52,7 +52,7 @@ const Order = (props) => {
     );
 };
 
-const mapStatetoProps = ({orderedBooks, orderAmount}) => {
+const mapStateToProps = ({order: {orderedBooks, orderAmount}}) => {
     return {
         items: orderedBooks,
         total: orderAmount,
@@ -69,4 +69,4 @@ const mapDispatchToProps = (dispatch) => {
     )
 };
 
-export default connect(mapStatetoProps, mapDispatchToProps)(Order)
+export default connect(mapStateToProps, mapDispatchToProps)(Order)
