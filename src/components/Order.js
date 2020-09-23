@@ -52,7 +52,7 @@ const Order = (props) => {
     );
 };
 
-const mapStateToProps = ({order: {orderedBooks, orderAmount}}) => {
+const mapStateToProps = ({order: {orderedBooks,orderAmount}}) => {
     return {
         items: orderedBooks,
         total: orderAmount,
