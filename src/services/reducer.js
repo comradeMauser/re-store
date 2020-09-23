@@ -12,63 +12,65 @@ const initState = {
 };
 
 const updateCart = (state, payload, value) => {
-    const {booksList: {books}, order: {orderedBooks}} = state
+    const {booksList: {books}, order} = state
     const book = books.find(book => book.id === payload)
-    const indexInOrder = orderedBooks.findIndex(el => el.id === payload)
+    const indexInOrder = order.orderedBooks.findIndex(el => el.id === payload)
 
-    return updateBook(state, indexInOrder, book, value)
+    return updateBook(order, indexInOrder, book, value)
 };
 
 //books counter changing
-const updateBook = (state, indexInOrder, book, value) => {
+const updateBook = (order, indexInOrder, book, value) => {
+    const {orderedBooks} = order
     //remove position if no value
     if (value) {
         //others operations with counters
         if (indexInOrder > -1) {
-            const counter = state.orderedBooks[indexInOrder].count
+            const counter = orderedBooks[indexInOrder].count
             //others operations with clones
             if (counter <= 0) {
-                return updateBook(state, indexInOrder, book)
+                return updateBook(order, indexInOrder, book)
             } else
-                return cloneBook(state, indexInOrder, book, value)
+                return cloneBook(order, indexInOrder, book, value)
         }
         //adding not cloned books
         else {
             return {
-                ...state,
+                ...order,
                 orderedBooks: [
-                    ...state.orderedBooks,
+                    ...orderedBooks,
                     book
                 ]
             }
         }
     } else {
         return {
-            ...state,
+            ...order,
             orderedBooks: [
-                ...state.orderedBooks.slice(0, indexInOrder),
-                ...state.orderedBooks.slice(indexInOrder + 1),
+                ...orderedBooks.slice(0, indexInOrder),
+                ...orderedBooks.slice(indexInOrder + 1),
             ]
         }
     }
 };
 
 // f() will create position with clones in list orders, then => updated state with this position
-const cloneBook = (state, indexInOrder, book, value) => {
+const cloneBook = (order, indexInOrder, book, value) => {
+    const {orderedBooks} = order
     //new updated position/line in the cart
     const cloneBook = {
         ...book,
-        price: state.orderedBooks[indexInOrder].price + (book.price * value),
-        count: state.orderedBooks[indexInOrder].count + (book.count * value),
+        price: orderedBooks[indexInOrder].price + (book.price * value),
+        count: orderedBooks[indexInOrder].count + (book.count * value),
     };
 
     return {
-        ...state,
+        ...order,
         orderedBooks: [
-            ...state.orderedBooks.slice(0, indexInOrder),
+            ...orderedBooks.slice(0, indexInOrder),
             cloneBook,
-            ...state.orderedBooks.slice(indexInOrder + 1)
-        ]
+            ...orderedBooks.slice(indexInOrder + 1)
+        ],
     }
 };
 
@@ -96,9 +98,9 @@ const updateBookList = (state, action) => {
             return state
     }
 };
+
 const updateOrder = (state, action) => {
     switch (action.type) {
-
         case "BOOKS_ADDED":
             // this case includes functions Adding and Increase books count
             return updateCart(state, action.payload, 1);
