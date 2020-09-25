@@ -20,24 +20,11 @@ const Header = (props) => {
                         <li className="nav-item">
                             <Link className="nav-link" to={"/home/"}>Home</Link></li>
                         <li className="nav-item">
-                            <Link className="nav-link" to={"/card/"}>Card</Link></li>
-                        <li className="nav-item">
                             <Link className="nav-link" to="/books">Books</Link></li>
                         <li className="nav-item">
                             <Link className="nav-link" to={"/"}>Pricing</Link></li>
                         <li className="nav-item">
                             <Link className="nav-link" to={"/about/"}>About</Link></li>
-                        {/*  <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                               aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div className="dropdown-menu">
-                                <a className="dropdown-item" href="#">Action</a>
-                                <a className="dropdown-item" href="#">Another action</a>
-                                <a className="dropdown-item" href="#">Something else here</a>
-                                <div className="dropdown-divider"></div>
-                                <a className="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </li>*/}
                     </ul>
 
                     <li className="books-amount">
