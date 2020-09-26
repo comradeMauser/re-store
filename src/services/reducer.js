@@ -10,7 +10,7 @@ const initState = {
     },
     order: {
         orderedBooks: [],
-        orderAmount: 13666,
+        orderAmount: 0,
     },
 
 };

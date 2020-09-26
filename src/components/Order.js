@@ -47,6 +47,7 @@ const Order = (props) => {
             </table>
             <div className="total">
                 Total: ${total}
+                {/*{items.map(item => item.price).reduce((a, b) => +a + +b, 0)}*/}
             </div>
         </div>
     );
