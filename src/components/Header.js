@@ -1,10 +1,13 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import "../styles/header.css";
+import {connect} from "react-redux";
 
 
 const Header = (props) => {
-    const {amount, total} = props
+    const {items} = props
+    const amount = parseInt(items.map(book => book.count).reduce((a, b) => a + b, 0))
+    const total = parseInt(items.map(book => book.price).reduce((a, b) => a + b, 0))
 
     return (
         <div className="header">
@@ -45,4 +48,10 @@ const Header = (props) => {
     );
 };
 
-export default Header;
+const mapStateToProps = ({order: {orderedBooks}}) => {
+    return {
+        items: orderedBooks,
+    }
+};
+
+export default connect(mapStateToProps)(Header);

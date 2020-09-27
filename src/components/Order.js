@@ -7,7 +7,7 @@ import {bindActionCreators} from "redux";
 
 
 const Order = (props) => {
-    const {items, total, increase, decrease, trashCan} = props
+    const {items, increase, decrease, trashCan} = props
     const bookOrdered = (item, index) => {
         const {id, author, price, count, title} = item
 
@@ -46,8 +46,7 @@ const Order = (props) => {
                 </tbody>
             </table>
             <div className="total">
-                Total: ${total}
-                {/*{items.map(item => item.price).reduce((a, b) => +a + +b, 0)}*/}
+                Total: ${items.map(item => item.price).reduce((a, b) => +a + +b, 0)}
             </div>
         </div>
     );

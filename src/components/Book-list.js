@@ -14,8 +14,7 @@ const BookList = ({books, addToCart}) => {
                 books.map(book => {
                     return (
                         <li key={book.id}
-                            className="list-group-item"
-                        >
+                            className="list-group-item">
                             <BookListItem book={book} addToCart={addToCart}/>
                         </li>
                     )
@@ -33,7 +32,6 @@ class BookListContainer extends Component {
     }
 
     render() {
-        console.debug(this.props.books)
         const {books, loading, error, addToCart} = this.props
 
         if (error) {

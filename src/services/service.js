@@ -16,7 +16,7 @@ class BooksService {
             price: 50,
             count: 1,
             coverImage: "https://img2.wbstatic.net/big/new/12300000/12309790-2.jpg",
-        },/* {
+        }, {
             id: 3,
             author: "David Elieser Deutsch",
             title: "The Fabric of Reality",
@@ -30,7 +30,7 @@ class BooksService {
             price: 10,
             count: 1,
             coverImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTUG9ghcIu7P6hvhWMJPucTcdDd3McEcp6uzA&usqp=CAU",
-        },*/
+        },
     ];
 
     getBooks() {

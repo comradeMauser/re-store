@@ -1,5 +1,4 @@
 import React from 'react';
-import Card from "./Card";
 // import ErrorIndicator from "./Error-indicator";
 import HocContext from "../services/hoc-context";
 import Home from "./Home";
@@ -21,7 +20,6 @@ const App = () => {
             <OrderCart amount={13}/>
             <Switch>
                 <Route path={"/home/"} component={Home} exaxt={true}/>
-                <Route path={"/card/"} component={Card} exaxt={true}/>
                 <Route path={"/books/"} component={Books} exaxt={true}/>
                 <Route path={"/about/"} component={About} exaxt={true}/>
                 <Route path={"/amount/"} component={OrderCart} exaxt={true}/>
